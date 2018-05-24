@@ -1,0 +1,142 @@
+<div *ngIf="agents" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
+    <p-table #dt [value]="agents" selectionMode="single" [(selection)]="selectedAgent" (onRowSelect)="onRowSelect($event)" [paginator]="true"
+        [rows]="10" [pageLinks]="10" [rowsPerPageOptions]="[10,20,50]" [globalFilterFields]="['nom', 'prenom', 'idRh', 'flux.nom', 'ilot.nom', 'grade.nom']">
+
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+            </div>
+            Liste des Agents
+            <div style="text-align: right" fxLayout="row">
+                <i class="fa fa-search" style="margin:4px 4px 0 0" fxFlex="90%"></i>
+                <input type="text" pInputText size="50" placeholder="Filtre" fxFlex="15%" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+            </div>
+        </ng-template>
+
+        <!-- ng-template pTemplate="caption">                
+            Liste des Agents
+            <div style="text-align: right" fxLayout="row">
+                <i class="fa fa-search" style="margin:4px 4px 0 0" fxFlex="90%"></i>
+                <input type="text" pInputText size="50" placeholder="Filtre" fxFlex="15%" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+            </div>
+        </ng-template -->
+        <p-header>Liste des Agents</p-header>
+        <ng-template pTemplate="header">
+            <tr>
+                <th [pSortableColumn]="'idRh'">IdRh
+                    <p-sortIcon [field]="'idRh'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'nom'">Nom
+                    <p-sortIcon [field]="'nom'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'prenom'">Prénom
+                    <p-sortIcon [field]="'prenom'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'flux'">Flux
+                    <p-sortIcon [field]="'flux'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'ilot'">Ilôt
+                    <p-sortIcon [field]="'ilot'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'grade'">Grade
+                    <p-sortIcon [field]="'grade'"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-agent let-rowData>
+            <tr [pSelectableRow]="rowData">
+                <td>{{agent?.idRh}}</td>
+                <td>{{agent?.nom}}</td>
+                <td>{{agent?.prenom}}</td>
+                <td>{{agent?.flux?.nom}}</td>
+                <td>{{agent?.ilot?.nom}}</td>
+                <td>{{agent?.grade?.grade}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:left" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="90%">
+                    <button type="button" mat-raised-button class="pink lighten-1" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Nouvel Agent"></button>
+                </div>
+                <div fxFlex="10%"> {{agents?.length}} agents</div>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Agent Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="400">
+    <div class="ui-g ui-fluid" *ngIf="agent">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="idRh">IdRh</label>
+            </div>
+            <div class="ui-g-8">
+                <div [formGroup]="agentForm" class="ui-grid-col-6">
+                    <input pInputText formControlName="idrh" placeholder="Obligatoire" [(ngModel)]="agent.idRh" />
+                    <div *ngIf="!agentForm.controls['idrh'].valid&&agentForm.controls['idrh'].dirty">
+                        <p-message *ngIf="agentForm.invalid" severity="warn" text="Format incorrect AAA111"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="nom">Nom</label>
+            </div>
+            <div [formGroup]="agentForm" class="ui-g-8">
+                <input pInputText formControlName="nom" id="nom" placeholder="Obligatoire" [(ngModel)]="agent.nom" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="prenom">Prénom</label>
+            </div>
+            <div [formGroup]="agentForm" class="ui-g-8">
+                <input pInputText formControlName="prenom" id="prenom" placeholder="Obligatoire" [(ngModel)]="agent.prenom" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="flux">Flux</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeFlux" optionLabel="nom" [(ngModel)]="agent.flux" placeholder="Choisir un Flux"
+                    [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ilot">Ilot</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeIlots" optionLabel="nom" [(ngModel)]="agent.ilot" placeholder="Choisir un ilot"
+                    [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="grade">Grade</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeGrades" optionLabel="grade" [(ngModel)]="agent.grade" placeholder="Choisir un grade"
+                    [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" mat-raised-button pButton icon="fa-close" (click)="delete()" label="Supprimer"></button>
+            <button type="button" [disabled]="cacherBouton()" mat-raised-button pButton icon="fa-check" (click)="save()" label="Enregistrer"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
