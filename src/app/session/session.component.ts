@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sessions } from './../modeles/sessions';
 import { Salles } from './../modeles/salle';
 import { FormationService } from './../services/formation.service';
@@ -16,7 +17,8 @@ import { SessionService } from '../services/session.service';
 })
 export class SessionComponent implements OnInit {
 
-  date: Date;
+  dateDebut: Date;
+  dateFin: Date;
   fr: any;
   selected: any;
   listeFormateurs: Formateurs[];
@@ -32,13 +34,18 @@ export class SessionComponent implements OnInit {
   constructor(private formateurService: FormateurService,
     private formationService: FormationService,
     private salleService: SalleService,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.session = {
+      'id': null,
       'nom': '',
+      'validation': true,
       'nbrePersonne': null,
-      'date': null,
+      'dateDebut': null,
+      'dateFin': null,
       'formateur': {
         'id': null,
       },
@@ -68,21 +75,22 @@ export class SessionComponent implements OnInit {
   }
 
   save() {
-    this.session.id = null;
     this.session.nbrePersonne = this.nbrePersonnes;
     this.session.nom = this.nom;
-    this.session.date = this.date;
+    this.session.dateDebut = this.dateDebut;
+    this.session.dateFin = this.dateFin;
     this.session.formateur.id = this.formateur.id;
     this.session.formation.id = this.formation.id;
     this.session.salle.id = this.salle.id;
-    console.log(this.session);
 
     this.sessionService.create(this.session).subscribe(
-      session => this.session = session,
+      session => {
+      this.session = session,
+        this.router.navigate(['/sessions']);
+      }
     );
-    this.nom = '';
-
     console.log(this.session);
+
   }
 
   getFormateurs() {

@@ -21,7 +21,8 @@ import {
   RadioButtonModule,
   CalendarModule,
   SpinnerModule,
-  FieldsetModule
+  FieldsetModule,
+  PickListModule
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 import { FormsModule, FormGroupDirective, FormControlDirective, ReactiveFormsModule } from '@angular/forms';
@@ -51,6 +52,8 @@ import { SalleService } from './services/salle.service';
 import { SessionComponent } from './session/session.component';
 import { FormateurService } from './services/formateur.service';
 import { TableauGradesComponent } from './tableau-grades/tableau-grades.component';
+import { AffectationComponent } from './affectation/affectation.component';
+import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,9 @@ import { TableauGradesComponent } from './tableau-grades/tableau-grades.componen
     MenubarComponent,
     PlurielsPipe,
     SessionComponent,
-    TableauGradesComponent
+    TableauGradesComponent,
+    AffectationComponent,
+    AffAgentComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +102,7 @@ import { TableauGradesComponent } from './tableau-grades/tableau-grades.componen
     CalendarModule,
     SpinnerModule,
     FieldsetModule,
+    PickListModule,
     TooltipModule
 
   ],

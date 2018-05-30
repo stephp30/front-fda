@@ -14,6 +14,11 @@ export class SessionService {
       .get<Sessions[]>('http://localhost:8080/api/sessions');
   }
 
+  getValide(): Observable<Sessions[]> {
+    return this.http
+      .get<Sessions[]>('http://localhost:8080/api/sessionsValides');
+  }
+
   getOne(id: number): Observable<Sessions> {
     return this.http
       .get<Sessions>('http://localhost:8080/api/session/' + id);
@@ -31,5 +36,10 @@ export class SessionService {
   delete(id: number) {
     return this.http
       .delete<any>('http://localhost:8080/api/session/' + id);
+  }
+
+  convocation(item: Sessions): Observable<Sessions> {
+    return this.http
+      .post<Sessions>('http://localhost:8080/api/convocations/', item);
   }
 }

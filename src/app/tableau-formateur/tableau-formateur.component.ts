@@ -29,7 +29,8 @@ export class TableauFormateurComponent implements OnInit {
 
     this.cols = [
 
-      { field: 'idRh', header: 'IDRH' }, { field: 'nom', header: 'Nom' }, { field: 'prenom', header: 'Prénom' }
+      { field: 'idRh', header: 'IDRH' }, { field: 'nom', header: 'Nom' }, { field: 'prenom', header: 'Prénom' },
+      { field: 'mail', header: 'Mail' }, { field: 'tel', header: 'Téléphone' }
 
     ];
   }
@@ -52,18 +53,11 @@ export class TableauFormateurComponent implements OnInit {
           fl => this.formateur = fl,
 
         );
-      this.getAll();
     } else {
-      item2['id'] = this.formateur.id;
-      item2['idRh'] = this.formateur.idRh;
-      item2['nom'] = this.formateur.nom;
-      item2['prenom'] = this.formateur.prenom;
-      this.service.update(item2).subscribe(() => {
-      });
-      this.getAll();
+      item[this.allFormateur.indexOf(this.selected)] = this.formateur;
+      this.service.update(this.formateur).subscribe(() => {});
     }
-
-    this.getAll();
+    this.allFormateur = item;
     this.formateur = null;
     this.displayDialog = false;
   }

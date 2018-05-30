@@ -101,14 +101,13 @@ export class TableauAgentComponent implements OnInit {
           this.agentService.create(this.agent).subscribe(
             agent => this.agent = agent,
           );
-        this.getAgents();
       } else {
+        agents[this.agents.indexOf(this.selectedAgent)] = this.agent;
         this.agentService.update(this.agent).subscribe(() => {
+          console.log(this.agent);
         });
-        this.getAgents();
       }
-
-      this.getAgents();
+      this.agents = agents;
       this.agent = null;
       this.displayDialog = false;
     }

@@ -1,6 +1,6 @@
-<div *ngIf="ilots" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
+<div *ngIf="allIlots" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
 
-  <p-table #dt [columns]="cols" [value]="ilots" selectionMode="single" [(selection)]="selectedIlot" (onRowSelect)="onRowSelect($event)"
+  <p-table #dt [columns]="cols" [value]="allIlots" selectionMode="single" [(selection)]="selected" (onRowSelect)="onRowSelect($event)"
     [paginator]="true" [rows]="5" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
     <ng-template pTemplate="caption">
       Liste des Ilots
@@ -31,7 +31,7 @@
         <div fxFlex="90%">
           <button type="button" mat-raised-button class="pink lighten-1" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Nouvel Ilot"></button>
         </div>
-        <div fxFlex="10%"> {{ilots.length}} ilots</div>
+        <div fxFlex="10%"> {{allIlots.length}} ilots</div>
       </div>
     </ng-template>
   </p-table>

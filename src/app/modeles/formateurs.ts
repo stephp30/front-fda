@@ -3,4 +3,6 @@ export interface Formateurs {
     idRh?: string;
     nom?: string;
     prenom?: string;
+    tel?: string;
+    mail?: string;
 }

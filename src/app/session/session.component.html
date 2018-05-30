@@ -8,38 +8,49 @@
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">Nom</span>
+          <span class="ui-inputgroup-addon" style="width: 30%">Nom</span>
           <input [(ngModel)]="nom" type="text" pInputText placeholder="nom">
         </div>
       </div>
 
       <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">Nbre Personnes</span>
+          <span class="ui-inputgroup-addon" style="width: 30%">Nbre Personnes</span>
           <p-spinner [(ngModel)]="nbrePersonnes" size="3" [min]="0" [max]="100"></p-spinner>
         </div>
       </div>
 
       <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">Date</span>
-          <p-calendar [(ngModel)]="date" [showIcon]="true" [showTime]="true" [locale]="fr" dateFormat="dd/mm/yy">
+          <span class="ui-inputgroup-addon" style="width: 30%">Date de Début</span>
+          <p-calendar [(ngModel)]="dateDebut" [showIcon]="true" [showTime]="true" [locale]="fr" dateFormat="dd/mm/yy">
           </p-calendar>
         </div>
       </div>
+
+      <div class="ui-g-12 ui-md-4"></div>
+      <div class="ui-g-12 ui-md-4"></div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon" style="width: 30%">Date de Fin</span>
+          <p-calendar [(ngModel)]="dateFin" [showIcon]="true" [showTime]="true" [locale]="fr" dateFormat="dd/mm/yy">
+          </p-calendar>
+        </div>
+      </div>
+
     </div>
   </p-fieldset>
   <br>
   <br>
   <br>
 
-
   <p-fieldset legend="Listes">
     <div class="ui-g-12 ui-md-4">
       <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">Formateur</span>
+        <span class="ui-inputgroup-addon" style="width: 30%">Formateur</span>
         <p-dropdown [options]="listeFormateurs" [(ngModel)]="formateur" placeholder="Choisir un formateur" optionLabel="nom" [showClear]="true"></p-dropdown>
-      </div><br>
+      </div>
+      <br>
       <div *ngIf="formateur !== null; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>Formateur selectionné: {{formateur.nom}} {{formateur.prenom}}</ng-template>
       <ng-template #elseBlock>Formateur selectionné: aucun</ng-template>
@@ -47,9 +58,10 @@
 
     <div class="ui-g-12 ui-md-4">
       <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">Formation</span>
+        <span class="ui-inputgroup-addon" style="width: 30%">Formation</span>
         <p-dropdown [options]="listeFormations" [(ngModel)]="formation" placeholder="Choisir une formation" optionLabel="nom" [showClear]="true"></p-dropdown>
-      </div><br>
+      </div>
+      <br>
       <div *ngIf="formation !== null; then thenBlock1 else elseBlock1"></div>
       <ng-template #thenBlock1>Formation selectionnée: {{formation.nom}}</ng-template>
       <ng-template #elseBlock1>Formation selectionnée: aucune</ng-template>
@@ -57,12 +69,13 @@
 
     <div class="ui-g-12 ui-md-4">
       <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">Salles</span>
+        <span class="ui-inputgroup-addon" style="width: 30%">Salles</span>
         <p-dropdown [options]="listeSalles" [(ngModel)]="salle" placeholder="Choisir une salle" optionLabel="nom" [showClear]="true"></p-dropdown>
-      </div><br>
+      </div>
+      <br>
       <div *ngIf="formation !== null; then thenBlock2 else elseBlock2"></div>
       <ng-template #thenBlock2>Salle selectionnée: {{salle.nom}}</ng-template>
-      <ng-template #elseBlock2>Salle selectionnée: aucune</ng-template>
+      <ng-template #elseBlock2>Salle selectionnée: aucune</ng-template>     
     </div>
   </p-fieldset>
   <br>
@@ -71,10 +84,8 @@
 
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button pButton type="button" label="Save" icon="fa-check" (click)="save()"></button>
+      <button pButton type="button" label="Enregistrer" icon="fa-check" (click)="save()"></button>
       <button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"></button>
     </div>
   </p-footer>
-  {{date |json}}
-
 </p-card>

@@ -15,12 +15,14 @@ export class MenuComponent implements OnInit {
     route: String;
 
     ngOnInit() {
-        this.items = [{
-            label: 'Menu',
-            items: [
-                { label: 'Session', icon: 'fa-briefcase', routerLink: ['sessions'] }
 
-            ]
+        this.items = [{
+            label: 'Formateurs',
+            items: [{ label: 'Session', icon: 'fa-briefcase', routerLink: ['sessions'] }]
+        },
+        {
+            label: 'Encadrants',
+            items: [{ label: 'Affectations', icon: 'fa-briefcase', routerLink: ['affectations'] }]
         },
         {
             label: 'Listes',
@@ -31,7 +33,7 @@ export class MenuComponent implements OnInit {
                 { label: 'Grades', icon: 'fa-table', routerLink: ['grades'] },
                 { label: 'Formateurs', icon: 'fa-table', routerLink: ['formateurs'] },
                 { label: 'Formations', icon: 'fa-table', routerLink: ['formations'] },
-                { label: 'Salles', icon: 'fa-table', routerLink: ['salles']  }
+                { label: 'Salles', icon: 'fa-table', routerLink: ['salles'] }
             ]
         },
         {
@@ -42,4 +44,5 @@ export class MenuComponent implements OnInit {
             ]
         }];
     }
+
 }

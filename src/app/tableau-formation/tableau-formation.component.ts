@@ -51,14 +51,11 @@ export class TableauFormationComponent implements OnInit {
           fl => this.formation = fl,
 
         );
-      this.getAll();
     } else {
-      this.service.update(this.formation).subscribe(() => {
-      });
-      this.getAll();
+      item[this.allFormation.indexOf(this.selected)] = this.formation;
+      this.service.update(this.formation).subscribe(() => {});
     }
-
-    this.getAll();
+    this.allFormation = item;
     this.formation = null;
     this.displayDialog = false;
   }

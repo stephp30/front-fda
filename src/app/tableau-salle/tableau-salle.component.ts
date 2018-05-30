@@ -25,40 +25,48 @@ export class TableauSalleComponent implements OnInit {
   constructor(private service: SalleService, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.salle = {
+      'id': null,
+      'nom': '',
+      'etage': ''
+    };
+
     this.getAll();
 
     this.cols = [
-
-      { field: 'nom', header: 'Nom' },  { field: 'etage', header: 'Etage' }
-
+      { field: 'nom', header: 'Nom' }, { field: 'etage', header: 'Etage' }
     ];
   }
+
   getAll() {
     this.service.getAll().subscribe(item => {
       this.AllSalle = item;
     });
   }
+
   showDialogToAdd() {
     this.new = true;
     this.salle = {};
     this.displayDialog = true;
   }
+
   save() {
     const item = [...this.AllSalle];
     if (this.new) {
       item.push(this.salle),
         this.service.create(this.salle).subscribe(
-          fl => this.salle = fl,
-
+          x => this.salle = x,
         );
-      this.getAll();
     } else {
-      this.service.update(this.salle).subscribe(() => {
-      });
-      this.getAll();
+      const x: Salles = {};
+      x.id = this.salle.id;
+      x.nom = this.salle.nom;
+      x.etage = this.salle.etage;
+      item[this.AllSalle.indexOf(this.selected)] = this.salle;
+      this.service.update(x).subscribe(() => {});
     }
-
-    this.getAll();
+    this.AllSalle = item;
     this.salle = null;
     this.displayDialog = false;
   }
@@ -114,6 +122,6 @@ export class TableauSalleComponent implements OnInit {
 
   clear() {
     this.messageService.clear();
-}
+  }
 }
 

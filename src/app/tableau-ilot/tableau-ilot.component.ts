@@ -13,18 +13,23 @@ import { IlotService } from '../services/ilot.service';
 export class TableauIlotComponent implements OnInit {
 
   displayDialog: boolean;
-  ilots: Ilots[];
+  allIlots: Ilots[];
   ilot: Ilots = {};
-  selectedIlot: Ilots;
+  selected: Ilots;
   newIlot: boolean;
   cols: any[];
   userform: FormGroup;
   submitted: boolean;
   msgs: Message[] = [];
 
-  constructor(private ilotService: IlotService, private fb: FormBuilder, private messageService: MessageService) { }
+  constructor(private service: IlotService, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.ilot = {
+      'id': null,
+      'nom': ''
+    };
 
     this.getIlots();
 
@@ -35,8 +40,8 @@ export class TableauIlotComponent implements OnInit {
     ];
   }
   getIlots() {
-    this.ilotService.getAll().subscribe(ilots => {
-      this.ilots = ilots;
+    this.service.getAll().subscribe(ilots => {
+      this.allIlots = ilots;
     });
   }
   showDialogToAdd() {
@@ -44,30 +49,29 @@ export class TableauIlotComponent implements OnInit {
     this.ilot = {};
     this.displayDialog = true;
   }
+
+
   save() {
-    const ilot = [...this.ilots];
+    const item = [...this.allIlots];
     if (this.newIlot) {
-      ilot.push(this.ilot),
-        this.ilotService.create(this.ilot).subscribe(
-          fl => this.ilot = fl,
+      item.push(this.ilot),
+        this.service.create(this.ilot).subscribe(
+          x => this.ilot = x,
 
         );
-      this.getIlots();
     } else {
-      this.ilotService.update(this.ilot).subscribe(() => {
-      });
-      this.getIlots();
+      item[this.allIlots.indexOf(this.selected)] = this.ilot;
+      this.service.update(this.ilot).subscribe(() => {});
     }
-
-    this.getIlots();
+    this.allIlots = item;
     this.ilot = null;
     this.displayDialog = false;
   }
 
   delete() {
-    const index = this.ilots.indexOf(this.selectedIlot);
-    this.ilots = this.ilots.filter((val, i) => i !== index);
-    this.ilotService.delete(this.ilot.id).subscribe();
+    const index = this.allIlots.indexOf(this.selected);
+    this.allIlots = this.allIlots.filter((val, i) => i !== index);
+    this.service.delete(this.ilot.id).subscribe();
     this.ilot = null;
     this.displayDialog = false;
   }

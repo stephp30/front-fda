@@ -25,6 +25,13 @@ export class TableauGradesComponent implements OnInit {
   constructor(private service: GradeService, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.grade = {
+      'id': null,
+      'classe': '',
+      'grade': '',
+    };
+
     this.getAll();
 
     this.cols = [
@@ -52,17 +59,16 @@ export class TableauGradesComponent implements OnInit {
           fl => this.grade = fl,
 
         );
-      this.getAll();
     } else {
-      item2['id'] = this.grade.id;
-      item2['classe'] = this.grade.classe;
-      item2['grade'] = this.grade.grade;
-      this.service.update(item2).subscribe(() => {
-      });
-      this.getAll();
+      const x: Grades = {};
+      x.id = this.grade.id;
+      x.grade = this.grade.grade;
+      x.classe = this.grade.classe;
+      item[this.allGrade.indexOf(this.selected)] = this.grade;
+      this.service.update(x).subscribe(() => { });
+      console.log(x);
     }
-
-    this.getAll();
+    this.allGrade = item;
     this.grade = null;
     this.displayDialog = false;
   }

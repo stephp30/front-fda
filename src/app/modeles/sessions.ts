@@ -8,11 +8,12 @@ export interface Sessions {
     id?: number;
     nom?: string;
     nbrePersonne?: number;
-    agents?: Agents[];
+    agent?: Agents[];
     formateur?: Formateurs;
-    habilitations?: Habilitations;
     formation?: Formations;
     salle?: Salles;
-    date?: Date;
+    dateDebut?: Date;
+    dateFin?: Date;
+    validation?: boolean;
 
 }

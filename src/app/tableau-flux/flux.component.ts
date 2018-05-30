@@ -25,9 +25,14 @@ export class TableauFluxComponent implements OnInit {
   submitted: boolean;
   msgs: Message[] = [];
 
-  constructor(private fluxService: FluxService, private fb: FormBuilder, private messageService: MessageService) { }
+  constructor(private service: FluxService, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.flux = {
+      'id': null,
+      'nom': ''
+    };
 
     this.getAllFlux();
 
@@ -38,7 +43,7 @@ export class TableauFluxComponent implements OnInit {
     ];
   }
   getAllFlux() {
-    this.fluxService.getAll().subscribe(flux => {
+    this.service.getAll().subscribe(flux => {
       this.Allflux = flux;
     });
   }
@@ -48,21 +53,18 @@ export class TableauFluxComponent implements OnInit {
     this.displayDialog = true;
   }
   save() {
-    const flux = [...this.Allflux];
+    const item = [...this.Allflux];
     if (this.newFlux) {
-      flux.push(this.flux),
-        this.fluxService.create(this.flux).subscribe(
-          fl => this.flux = fl,
+      item.push(this.flux),
+        this.service.create(this.flux).subscribe(
+          x => this.flux = x,
 
         );
-      this.getAllFlux();
     } else {
-      this.fluxService.update(this.flux).subscribe(() => {
-      });
-      this.getAllFlux();
+      item[this.Allflux.indexOf(this.selectedFlux)] = this.flux;
+      this.service.update(this.flux).subscribe(() => {});
     }
-
-    this.getAllFlux();
+    this.Allflux = item;
     this.flux = null;
     this.displayDialog = false;
   }
@@ -70,7 +72,7 @@ export class TableauFluxComponent implements OnInit {
   delete() {
     const index = this.Allflux.indexOf(this.selectedFlux);
     this.Allflux = this.Allflux.filter((val, i) => i !== index);
-    this.fluxService.delete(this.flux.id).subscribe();
+    this.service.delete(this.flux.id).subscribe();
     this.flux = null;
     this.displayDialog = false;
   }
