@@ -11,6 +11,7 @@ import { TableauFormationComponent } from './tableau-formation/tableau-formation
 import { TableauFormateurComponent } from './tableau-formateur/tableau-formateur.component';
 import { TableauGradesComponent } from './tableau-grades/tableau-grades.component';
 import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
+import { GraphComponent } from './graph/graph.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/agents', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'salles', component: TableauSalleComponent },
   { path: 'grades', component: TableauGradesComponent },
   { path: 'formations', component: TableauFormationComponent },
-  { path: 'formateurs', component: TableauFormateurComponent }
+  { path: 'formateurs', component: TableauFormateurComponent },
+  { path: 'graph', component: GraphComponent }
 
 ];
 

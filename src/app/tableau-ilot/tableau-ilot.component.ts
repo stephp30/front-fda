@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Message, SortEvent } from 'primeng/api';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Ilots } from './../modeles/ilots';
 import { Component, OnInit } from '@angular/core';
 import { IlotService } from '../services/ilot.service';
@@ -18,7 +18,7 @@ export class TableauIlotComponent implements OnInit {
   selected: Ilots;
   newIlot: boolean;
   cols: any[];
-  userform: FormGroup;
+  form: FormGroup;
   submitted: boolean;
   msgs: Message[] = [];
 
@@ -34,11 +34,23 @@ export class TableauIlotComponent implements OnInit {
     this.getIlots();
 
     this.cols = [
-
       { field: 'nom', header: 'Nom' }
-
     ];
+
+    this.form = this.fb.group({
+      'nom': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z].+$')]))
+    });
   }
+
+  cacherBouton(): boolean {
+    let a: boolean;
+    a = true;
+    if (this.form.valid) {
+      a = false;
+    }
+    return a;
+  }
+
   getIlots() {
     this.service.getAll().subscribe(ilots => {
       this.allIlots = ilots;

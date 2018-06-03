@@ -42,15 +42,15 @@
         <div class="ui-g-4">
           <label for="nom">Nom</label>
         </div>
-        <div class="ui-g-8">
-          <input pInputText id="nom" [(ngModel)]="flux.nom" />
+        <div [formGroup]="form" class="ui-g-8">
+          <input pInputText formControlName="nom" id="nom" [(ngModel)]="flux.nom" />
         </div>
       </div>
     </div>
     <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
         <button type="button" mat-raised-button pButton icon="fa-close" (click)="show()" (click)="delete()" label="Supprimer"></button>
-        <button type="button" mat-raised-button pButton icon="fa-check" (click)="save()" label="Enregistrer"></button>
-      </div>
+        <button type="button" [disabled]="cacherBouton()" mat-raised-button pButton icon="fa-check" (click)="save()" label="Enregistrer"></button>
+         </div>
     </p-footer>
   </p-dialog>

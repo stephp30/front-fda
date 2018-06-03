@@ -26,6 +26,7 @@
     "@angular/router": "^5.2.0",
     "angular-font-awesome": "^3.1.2",
     "angular2-materialize": "^15.1.10",
+    "chart.js": "^2.7.2",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "font-awesome-v5-icons": "^1.0.2",

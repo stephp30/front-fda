@@ -18,7 +18,8 @@ export class MenuComponent implements OnInit {
 
         this.items = [{
             label: 'Formateurs',
-            items: [{ label: 'Session', icon: 'fa-briefcase', routerLink: ['sessions'] }]
+            items: [{ label: 'Création de Session', icon: 'fa-briefcase', routerLink: ['sessions'] },
+            { label: 'Validation de Session', icon: 'fa-list', routerLink: ['validation'] }]
         },
         {
             label: 'Encadrants',
@@ -40,7 +41,7 @@ export class MenuComponent implements OnInit {
             label: 'Gestion',
             items: [
                 { label: 'Statistiques', icon: 'fa-sort-numeric-desc' },
-                { label: 'Graphiques', icon: 'fas fa-area-chart' },
+                { label: 'Graphiques', icon: 'fas fa-area-chart', routerLink: ['graph'] },
             ]
         }];
     }

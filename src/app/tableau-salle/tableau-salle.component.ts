@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Salles } from '../modeles/salle';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { SalleService } from '../services/salle.service';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Component({
   selector: 'app-tableau-salle',
@@ -21,8 +22,10 @@ export class TableauSalleComponent implements OnInit {
   userform: FormGroup;
   submitted: boolean;
   msgs: Message[] = [];
+  error: ErrorEventHandler;
 
-  constructor(private service: SalleService, private fb: FormBuilder, private messageService: MessageService) { }
+  constructor(private service: SalleService, private fb: FormBuilder, private messageService: MessageService,
+  ) { }
 
   ngOnInit() {
 
@@ -56,15 +59,28 @@ export class TableauSalleComponent implements OnInit {
     if (this.new) {
       item.push(this.salle),
         this.service.create(this.salle).subscribe(
-          x => this.salle = x,
+          x => { this.salle = x; },
+          error => {
+            this.error = error.status;
+            if (!navigator.onLine) {
+                alert('Le service est momentanément coupé');
+            } else if (+this.error === 404) {
+              alert('La ressource n\'existe pas');
+            } else if (+this.error === 400) {
+              alert('Vérifier les informations rentrées');
+            } else {
+              alert('Une erreure de source inconnue c\'est produite');
+            }
+          }
         );
+
     } else {
       const x: Salles = {};
       x.id = this.salle.id;
       x.nom = this.salle.nom;
       x.etage = this.salle.etage;
       item[this.AllSalle.indexOf(this.selected)] = this.salle;
-      this.service.update(x).subscribe(() => {});
+      this.service.update(x).subscribe(() => { });
     }
     this.AllSalle = item;
     this.salle = null;

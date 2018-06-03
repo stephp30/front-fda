@@ -55,7 +55,7 @@ export class AffAgentComponent implements OnInit {
 
   convocation() {
     this.service.convocation(this.session).subscribe(() => {
-      window.open('http://localhost:8080/pdf/convocation.pdf');
+      window.open('http://localhost:8080/static/convocation.pdf');
     });
   }
 }

@@ -21,7 +21,7 @@ export class TableauFluxComponent implements OnInit {
   selectedFlux: Flux;
   newFlux: boolean;
   cols: any[];
-  userform: FormGroup;
+  form: FormGroup;
   submitted: boolean;
   msgs: Message[] = [];
 
@@ -37,11 +37,22 @@ export class TableauFluxComponent implements OnInit {
     this.getAllFlux();
 
     this.cols = [
-
       { field: 'nom', header: 'Nom' }
-
     ];
+
+    this.form = this.fb.group({
+      'nom': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z].+$')]))
+    });
   }
+  cacherBouton(): boolean {
+    let a: boolean;
+    a = true;
+    if (this.form.valid) {
+      a = false;
+    }
+    return a;
+  }
+
   getAllFlux() {
     this.service.getAll().subscribe(flux => {
       this.Allflux = flux;
@@ -62,7 +73,7 @@ export class TableauFluxComponent implements OnInit {
         );
     } else {
       item[this.Allflux.indexOf(this.selectedFlux)] = this.flux;
-      this.service.update(this.flux).subscribe(() => {});
+      this.service.update(this.flux).subscribe(() => { });
     }
     this.Allflux = item;
     this.flux = null;
@@ -120,5 +131,5 @@ export class TableauFluxComponent implements OnInit {
 
   clear() {
     this.messageService.clear();
-}
+  }
 }

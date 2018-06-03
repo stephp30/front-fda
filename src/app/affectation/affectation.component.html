@@ -1,11 +1,11 @@
-<h3> Column Selection</h3>
+<h2> Session à venir</h2>
 <p-table [columns]="cols" [value]="sessions" selectionMode="single" [(selection)]="selected" dataKey="id">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of columns" style="background-color:#fff59d">
+            <th *ngFor="let col of columns" >
                 {{col.titre}}
             </th>
-            <th style="width:3em; background-color: #fff59d"></th>
+            <th style="width:3em"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">

@@ -22,7 +22,8 @@ import {
   CalendarModule,
   SpinnerModule,
   FieldsetModule,
-  PickListModule
+  PickListModule,
+  ChartModule
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 import { FormsModule, FormGroupDirective, FormControlDirective, ReactiveFormsModule } from '@angular/forms';
@@ -54,6 +55,7 @@ import { FormateurService } from './services/formateur.service';
 import { TableauGradesComponent } from './tableau-grades/tableau-grades.component';
 import { AffectationComponent } from './affectation/affectation.component';
 import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
     SessionComponent,
     TableauGradesComponent,
     AffectationComponent,
-    AffAgentComponent
+    AffAgentComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
     SpinnerModule,
     FieldsetModule,
     PickListModule,
-    TooltipModule
+    TooltipModule,
+    ChartModule
 
   ],
   exports: [BrowserModule],

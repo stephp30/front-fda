@@ -13,16 +13,7 @@
                 <input type="text" pInputText size="50" placeholder="Filtre" fxFlex="15%" (input)="dt.filterGlobal($event.target.value, 'contains')"
                     style="width:auto">
             </div>
-        </ng-template>
-
-        <!-- ng-template pTemplate="caption">                
-            Liste des Agents
-            <div style="text-align: right" fxLayout="row">
-                <i class="fa fa-search" style="margin:4px 4px 0 0" fxFlex="90%"></i>
-                <input type="text" pInputText size="50" placeholder="Filtre" fxFlex="15%" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                    style="width:auto">
-            </div>
-        </ng-template -->
+        </ng-template>        
         <p-header>Liste des Agents</p-header>
         <ng-template pTemplate="header">
             <tr>
@@ -122,8 +113,7 @@
             </div>
             <div class="ui-g-8">
                 <p-dropdown [autoWidth]="false" [options]="listeGrades" optionLabel="grade" [(ngModel)]="agent.grade" placeholder="Choisir un grade"
-                    [showClear]="true"></p-dropdown>
-                    <div>{{flux | json}}</div>
+                    [showClear]="true"></p-dropdown>                    
             </div>
         </div>
         <br>

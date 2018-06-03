@@ -1,14 +1,14 @@
 <p-card *ngIf="session">
   <p-fieldset legend="Info Session">
     <div class="ui-g-12 ui-md-4">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">{{session.nom}}</span>
-        <p>{{session.nom}}</p>
-      </div>
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">{{session.nom}}</span>
-        <p>{{session.formateur.nom}}</p>
-      </div>
+      <button type="button" pButton (click)="showSuccess()" label="Nom: {{session.nom}}" class="ui-button-success"></button>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <button type="button" pButton (click)="showSuccess()" label="Formateur: {{session.formateur.prenom}} {{session.formateur.nom}}"
+        class="ui-button-success"></button>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <button type="button" pButton (click)="showSuccess()" label="Salle: {{session.salle.nom}}" class="ui-button-success"></button>
     </div>
   </p-fieldset>
   <br>
@@ -20,7 +20,7 @@
     [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'} ">
     <ng-template let-agent pTemplate="item">
       <div class="ui-helper-clearfix">
-          <img src="https://placeimg.com/64/48/tech/{{agent.id}}" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+        <img src="https://placeimg.com/64/48/tech/{{agent.id}}" style="display:inline-block;margin:2px 0 2px 2px" width="48">
         <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{agent.nom}} - {{agent.prenom}}</div>
       </div>
     </ng-template>
@@ -30,7 +30,7 @@
   <br>
   <p-fieldset legend="Actions">
     <button pButton type="button" label="Enregistrer" icon="fa-check" (click)="save()"></button>
-    <button pButton type="button" label="Cancel" icon="fa-close"></button>    
-    <button pButton type="button" label="Convocations" icon="fa-file-pdf-o" (click)="convocation()"></button> 
+    <button pButton type="button" label="Cancel" icon="fa-close"></button>
+    <button pButton type="button" label="Convocations" icon="fa-file-pdf-o" (click)="convocation()"></button>
   </p-fieldset>
 </p-card>
