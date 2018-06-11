@@ -1,3 +1,4 @@
+import { AgentComponent } from './agent/agent.component';
 import { AffectationComponent } from './affectation/affectation.component';
 import { SessionComponent } from './session/session.component';
 import { TableauIlotComponent } from './tableau-ilot/tableau-ilot.component';
@@ -12,10 +13,12 @@ import { TableauFormateurComponent } from './tableau-formateur/tableau-formateur
 import { TableauGradesComponent } from './tableau-grades/tableau-grades.component';
 import { AffAgentComponent } from './affectation/aff-agent/aff-agent.component';
 import { GraphComponent } from './graph/graph.component';
+import { ListeSessionComponent } from './session/liste-session/liste-session.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/agents', pathMatch: 'full' },
   { path: 'sessions', component: SessionComponent },
+  { path: 'listeSessions', component: ListeSessionComponent },
   {
     path: 'affectations', component: AffectationComponent,
     children: [
@@ -28,7 +31,6 @@ const routes: Routes = [
       { path: '', redirectTo: '', pathMatch: 'full' }
     ]
   },
-
   { path: 'agents', component: TableauAgentComponent },
   { path: 'flux', component: TableauFluxComponent },
   { path: 'ilots', component: TableauIlotComponent },

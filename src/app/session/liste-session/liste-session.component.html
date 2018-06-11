@@ -1,0 +1,143 @@
+<div *ngIf="sessions" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
+    <p-table #dt [value]="sessions" selectionMode="single" [(selection)]="selected" (onRowSelect)="onRowSelect($event)" [paginator]="true"
+        (sortFunction)="customSort($event)" (sortFunction)="customSort1($event)" [customSort]="true" [rows]="10" [pageLinks]="10"
+        [rowsPerPageOptions]="[10,20,50]" [globalFilterFields]="['nom', 'nbrePersonne', 'dateDebut', 'dateFin','formateur.nom', 'formation.nom', 'salle.nom']">
+
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix">
+            </div>
+            Liste des Sessions
+            <div style="text-align: right" fxLayout="row">
+                <i class="fa fa-search" style="margin:4px 4px 0 0" fxFlex="90%"></i>
+                <input type="text" pInputText size="50" placeholder="Filtre" fxFlex="15%" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+            </div>
+        </ng-template>
+        <p-header>Liste des Sessions</p-header>
+        <ng-template pTemplate="header">
+            <tr>
+                <th [pSortableColumn]="'nom'">Nom
+                    <p-sortIcon [field]="'nom'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'nbrePersonne'">Nombre de Personne
+                    <p-sortIcon [field]="'nbrePersonne'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'dateDebut'">Date de début
+                    <p-sortIcon [field]="'dateDebut'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'dateFin'">Date de fin
+                    <p-sortIcon [field]="'dateFin'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'formateur'">Formateur
+                    <p-sortIcon [field]="'formateur'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'formation'">Formation
+                    <p-sortIcon [field]="'formation'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'salle'">Salle
+                    <p-sortIcon [field]="'salle'"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-session let-rowData>
+            <tr [pSelectableRow]="rowData">
+                <td>{{session?.nom}}</td>
+                <td>{{session?.nbrePersonne}}</td>
+                <td>{{session?.dateDebut | date:'dd-MM-yy'}}</td>
+                <td>{{session?.dateFin | date:'dd-MM-yy'}}</td>
+                <td>{{session?.formateur?.nom}}</td>
+                <td>{{session?.formation?.nom}}</td>
+                <td>{{session?.salle?.nom}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:left" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="90%">
+                </div>
+                <div fxFlex="10%"> {{sessions?.length}} sessions</div>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Session Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="400">
+    <div class="ui-g ui-fluid" *ngIf="session">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="nom">Nom</label>
+            </div>
+            <div class="ui-g-8">
+                <div class="ui-grid-col-6">
+                    <input pInputText placeholder="Obligatoire" [(ngModel)]="session.nom" />
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="nbrePersonne">Nombre de personnes</label>
+            </div>
+            <div class="ui-g-8">
+                <p-spinner [(ngModel)]="session.nbrePersonne" size="3" [min]="0" [max]="100"></p-spinner>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="dateDebut">Date de début</label>
+            </div>
+            <div class="ui-g-8">
+                <p-calendar [(ngModel)]="dateDebut" [showIcon]="true" [showTime]="true" [locale]="fr" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="dateFin">Date de fin</label>
+            </div>
+            <div class="ui-g-8">
+                <p-calendar [(ngModel)]="dateFin" [showIcon]="true" [showTime]="true" [locale]="fr" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="formateur">Formateur</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeFormateur" optionLabel="nom" [(ngModel)]="session.formateur" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="formation">Formation</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeFormation" optionLabel="nom" [(ngModel)]="session.formation" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="salle">Salle</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [autoWidth]="false" [options]="listeSalle" optionLabel="nom" [(ngModel)]="session.salle" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <p-toggleButton [(ngModel)]="session.validation" onLabel='Session_active' offLabel="Session_close" [style]="{'width':'50%'}"></p-toggleButton>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" mat-raised-button pButton icon="fa-close" (click)="delete()" label="Supprimer"></button>
+            <button type="button" mat-raised-button pButton icon="fa-check" (click)="save()" label="Enregistrer"></button>
+        </div>
+        <div></div>
+    </p-footer>
+
+</p-dialog>

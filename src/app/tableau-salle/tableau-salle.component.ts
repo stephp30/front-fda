@@ -69,7 +69,7 @@ export class TableauSalleComponent implements OnInit {
             } else if (+this.error === 400) {
               alert('Vérifier les informations rentrées');
             } else {
-              alert('Une erreure de source inconnue c\'est produite');
+              alert('Une erreure de source inconnue s\'est produite');
             }
           }
         );

@@ -1,6 +1,6 @@
 <div *ngIf="AllSalle" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
 
-  <p-table #dt [columns]="cols" [value]="AllSalle" selectionMode="single" [(selection)]="selected" (onRowSelect)="onRowSelect($event)"
+  <p-table #dt [columns]="cols" (sortFunction)="customSort($event)" (sortFunction)="customSort1($event)" [customSort]="true" [value]="AllSalle" selectionMode="single" [(selection)]="selected" (onRowSelect)="onRowSelect($event)"
     [paginator]="true" [rows]="5" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
     <ng-template pTemplate="caption">
       Liste des Salles

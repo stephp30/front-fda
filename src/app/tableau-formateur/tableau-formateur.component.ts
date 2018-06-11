@@ -54,8 +54,15 @@ export class TableauFormateurComponent implements OnInit {
 
         );
     } else {
+      const x: Formateurs = {};
+      x.id = this.formateur.id;
+      x.idRh = this.formateur.idRh;
+      x.nom = this.formateur.nom;
+      x.prenom = this.formateur.prenom;
+      x.mail = this.formateur.mail;
+      x.tel = this.formateur.tel;
       item[this.allFormateur.indexOf(this.selected)] = this.formateur;
-      this.service.update(this.formateur).subscribe(() => {});
+      this.service.update(x).subscribe(() => {});
     }
     this.allFormateur = item;
     this.formateur = null;

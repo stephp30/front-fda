@@ -1,6 +1,6 @@
 <div *ngIf="agents" class="container" fxLayout="row" fxLayout.xs="column" fxFlex="1 0 auto">
     <p-table #dt [value]="agents" selectionMode="single" [(selection)]="selectedAgent" 
-    (onRowSelect)="onRowSelect($event)" [paginator]="true"
+    (onRowSelect)="onRowSelect($event)" [paginator]="true" (sortFunction)="customSort($event)" (sortFunction)="customSort1($event)" [customSort]="true"
         [rows]="10" [pageLinks]="10" [rowsPerPageOptions]="[10,20,50]"
          [globalFilterFields]="['nom', 'prenom', 'idRh', 'flux.nom', 'ilot.nom', 'grade.nom']">
 
@@ -130,7 +130,7 @@
             <button type="button" mat-raised-button pButton icon="fa-close" (click)="delete()" label="Supprimer"></button>
             <button type="button" [disabled]="cacherBouton()" mat-raised-button pButton icon="fa-check" (click)="save()" label="Enregistrer"></button>
         </div>
-        <div>{{agent | json}}</div>
+        <div></div>
     </p-footer>
 
 </p-dialog>

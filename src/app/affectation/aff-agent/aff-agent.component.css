@@ -1,3 +1,7 @@
 :host >>> .ui-card {
     background-color: white;
 }
+
+:host >>> .ui-button-success {
+    width: 50%;
+}

@@ -58,6 +58,13 @@ export class AffAgentComponent implements OnInit {
       window.open('http://localhost:8080/static/convocation.pdf');
     });
   }
+
+  emargement() {
+    this.service.emargement(this.session).subscribe(() => {
+      window.open('http://localhost:8080/static/emargement.pdf');
+    });
+  }
+
 }
 
 

@@ -13,15 +13,16 @@ import { AgentService } from '../services/agent.service';
 import { FluxService } from '../services/flux.service';
 import { IlotService } from '../services/ilot.service';
 import { GradeService } from '../services/grade.service';
+import { DataTable } from 'primeng/primeng';
 
 @Component({
-  selector: 'app-tableau-agent',
-  templateUrl: './tableau-agent.component.html',
-  styleUrls: ['./tableau-agent.component.css'],
+  selector: 'app-agent',
+  templateUrl: './agent.component.html',
+  styleUrls: ['./agent.component.css'],
 
 
 })
-export class TableauAgentComponent implements OnInit {
+export class AgentComponent implements OnInit {
 
   displayDialog: boolean;
   agents: Agents[];
@@ -45,6 +46,15 @@ export class TableauAgentComponent implements OnInit {
     this.getAgents();
     this.getIlots();
     this.getGrades();
+
+    this.cols = [
+      { field: 'idRh', header: 'IDRH' },
+      { field: 'nom', header: 'Nom' },
+      { field: 'prenom', header: 'Prénom' },
+      { field: 'flux', header: 'Flux' },
+      { field: 'ilot', header: 'Ilot' },
+      { field: 'grade', header: 'Grade' }
+    ];
 
     this.agentForm = this.fb.group({
       'prenom': new FormControl('', Validators.required),
@@ -177,4 +187,24 @@ export class TableauAgentComponent implements OnInit {
     });
   }
 
+  customSort2(event: SortEvent) {
+    event.data.sort((data1, data2) => {
+      const value1 = data1[event.field].grade;
+      const value2 = data2[event.field].grade;
+      let result = null;
+
+      if (value1 == null && value2 != null) {
+        result = -1;
+      } else if (value1 != null && value2 == null) {
+        result = 1;
+      } else if (value1 == null && value2 == null) {
+        result = 0;
+      } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+        result = value1.localeCompare(value2);
+      } else {
+        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+      }
+      return (event.order * result);
+    });
+  }
 }

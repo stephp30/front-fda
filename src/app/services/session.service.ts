@@ -42,4 +42,9 @@ export class SessionService {
     return this.http
       .post<Sessions>('http://localhost:8080/api/convocations/', item);
   }
+
+  emargement(item: Sessions): Observable<Sessions> {
+    return this.http
+      .post<Sessions>('http://localhost:8080/api/emargement/', item);
+  }
 }

@@ -84,8 +84,8 @@
 
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button pButton type="button" label="Enregistrer" icon="fa-check" (click)="save()"></button>
-      <button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"></button>
+      <button pButton type="button" label="Enregistrer" (click)="save()" icon="fa-check"></button>
+      <button pButton type="button" label="Retour" icon="fa-close" class="ui-button-secondary" [routerLink]="['/affectations']"></button>
     </div>
   </p-footer>
 </p-card>

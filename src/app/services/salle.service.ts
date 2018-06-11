@@ -6,30 +6,33 @@ import { Salles } from '../modeles/salle';
 @Injectable()
 export class SalleService {
 
-  constructor(private http: HttpClient) { }
+  API: String = 'http://localhost:8080/api/';
+  items: String = 'salles';
+  item: String = 'salle/';
 
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Salles[]> {
     return this.http
-      .get<Salles[]>('http://localhost:8080/api/salles');
+      .get<Salles[]>(this.API + '' + this.items);
   }
 
   getOne(id: number): Observable<Salles> {
     return this.http
-      .get<Salles>('http://localhost:8080/api/salle/' + id);
+      .get<Salles>(this.API + '' + this.item + '' + id);
   }
   update(item: Salles): Observable<Salles> {
     return this.http
-      .put<Salles>('http://localhost:8080/api/salle/' + item.id, item);
+      .put<Salles>(this.API + '' + this.item + item.id, item);
   }
 
   create(item: Salles): Observable<Salles> {
     return this.http
-      .post<Salles>('http://localhost:8080/api/salle/', item);
+      .post<Salles>(this.API + '' + this.item, item);
   }
 
   delete(id: number) {
     return this.http
-      .delete<any>('http://localhost:8080/api/salle/' + id);
+      .delete<any>(this.API + '' + this.item + id);
   }
 }

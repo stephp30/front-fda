@@ -19,14 +19,14 @@ export class MenuComponent implements OnInit {
         this.items = [{
             label: 'Formateurs',
             items: [{ label: 'Création de Session', icon: 'fa-briefcase', routerLink: ['sessions'] },
-            { label: 'Validation de Session', icon: 'fa-list', routerLink: ['validation'] }]
+            { label: 'Liste des Sessions', icon: 'fa-list', routerLink: ['listeSessions'] }]
         },
         {
             label: 'Encadrants',
             items: [{ label: 'Affectations', icon: 'fa-briefcase', routerLink: ['affectations'] }]
         },
         {
-            label: 'Listes',
+            label: 'Configuration',
             items: [
                 { label: 'Agents', icon: 'fa-table', routerLink: ['agents'] },
                 { label: 'Flux', icon: 'fa-table', routerLink: ['flux'] },

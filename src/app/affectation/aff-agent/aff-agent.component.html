@@ -10,6 +10,13 @@
     <div class="ui-g-12 ui-md-4">
       <button type="button" pButton (click)="showSuccess()" label="Salle: {{session.salle.nom}}" class="ui-button-success"></button>
     </div>
+    <div class="ui-g-12 ui-md-4">
+      <button type="button" pButton (click)="showSuccess()" label="Début: {{session.dateDebut | date:'dd-MM-yy' }} à {{session.dateDebut | date:'HH-mm'}}" class="ui-button-success"></button>
+    </div>
+    <div class="ui-g-12 ui-md-4"></div>
+    <div class="ui-g-12 ui-md-4">
+      <button type="button" pButton (click)="showSuccess()" label="Fin: {{session.dateFin | date:'dd-MM-yy' }} à {{session.dateFin | date:'HH-mm'}}" class="ui-button-success"></button>
+    </div>
   </p-fieldset>
   <br>
   <br>
@@ -20,7 +27,7 @@
     [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'} ">
     <ng-template let-agent pTemplate="item">
       <div class="ui-helper-clearfix">
-        <img src="https://placeimg.com/64/48/tech/{{agent.id}}" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+        <img src="http://localhost:8080/static/{{agent.id}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
         <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{agent.nom}} - {{agent.prenom}}</div>
       </div>
     </ng-template>
@@ -30,7 +37,8 @@
   <br>
   <p-fieldset legend="Actions">
     <button pButton type="button" label="Enregistrer" icon="fa-check" (click)="save()"></button>
-    <button pButton type="button" label="Cancel" icon="fa-close"></button>
+    <button pButton type="button" label="Retour" icon="fa-close" [routerLink]="['/affectations']"></button>
     <button pButton type="button" label="Convocations" icon="fa-file-pdf-o" (click)="convocation()"></button>
+    <button pButton type="button" label="Emargement" icon="fa-file-pdf-o" (click)="emargement()"></button>
   </p-fieldset>
 </p-card>
